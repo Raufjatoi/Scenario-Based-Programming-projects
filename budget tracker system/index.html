@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Budget Tracker</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #111;
+        color: #d2b55b; /* Change text color to golden */
+    }
+
+    header {
+        background-color: #d2b55b;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        color: white;
+    }
+
+    .profile-pic {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+        transition: transform 0.3s;
+    }
+
+    .profile-pic:hover {
+        transform: scale(1.1);
+    }
+
+    .main-content {
+        padding: 20px;
+        margin-top: 20px;
+        border: 2px solid #d2b55b;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px #d2b55b;
+        width: 100%;
+        max-width: 1200px;
+        margin: 20px auto;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        color: #bfaa59;
+    }
+
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        color: #111; /* Change label text color to black */
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #d2b55b; /* Change button background color to golden */
+        color: #111; /* Change button text color to black */
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #bfaa59; /* Change button hover background color to darker golden */
+    }
+
+    .transactions {
+        margin-top: 20px;
+    }
+
+    .transactions table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .transactions th,
+    .transactions td {
+        border-bottom: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .transactions th {
+        background-color: #f2f2f2;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <a href="https://doin-somethin-raufs-projects-c9139f72.vercel.app/"><img src="IMG_0406.JPG" alt="Profile 1" class="profile-pic"></a>
+        <h1>Personal Budget Tracker</h1>
+        <a href="profile2_link.html"><img src="github.png" alt="Profile 2" class="profile-pic"></a>
+    </div>
+</header>
+
+<div class="main-content">
+    <form id="transaction-form">
+        <label for="category">Category:</label>
+        <select id="category">
+            <option value="rent">Rent</option>
+            <option value="groceries">Groceries</option>
+            <option value="transportation">Transportation</option>
+            <!-- Add more options as needed -->
+        </select>
+
+        <label for="amount">Amount (PKR):</label>
+        <input type="number" id="amount" required>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" required>
+
+        <button type="submit">Add Transaction</button>
+    </form>
+
+    <div class="transactions">
+        <h2>Transactions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Amount (PKR)</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="transaction-list">
+                <!-- Transaction data will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer>
+    <p>by Rauf</p>
+</footer>
+
+<script>
+    const transactionForm = document.getElementById('transaction-form');
+    const transactionList = document.getElementById('transaction-list');
+
+    transactionForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const category = document.getElementById('category').value;
+        const amount = document.getElementById('amount').value;
+        const date = document.getElementById('date').value;
+
+        // Add transaction to the list
+        const transactionItem = document.createElement('tr');
+        transactionItem.innerHTML = `
+            <td>${category}</td>
+            <td>${amount}</td>
+            <td>${date}</td>
+        `;
+        transactionList.appendChild(transactionItem);
+
+        // Clear the form fields
+        transactionForm.reset();
+    });
+</script>
+
+</body>
+</html>
