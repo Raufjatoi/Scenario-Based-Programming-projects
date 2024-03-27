@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Home Automation</title>
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      text-align: center;
+      background-color: lightblue;
+      padding: 20px 0;
+    }
+
+    .header h1 {
+      margin: 0;
+    }
+
+    .profile-pics {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      margin-top: -50px; /* Adjust this value to lift the profile images */
+    }
+
+    .profile-pic img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .profile-pic img:hover {
+      transform: scale(1.1);
+    }
+
+    .function-block {
+      background-color: #1a1a1a;
+      padding: 20px;
+      text-align: center;
+      margin-top: 50px;
+      border: 2px solid lightblue;
+      width: 60%;
+      margin: 50px auto;
+    }
+
+    .function-block h2 {
+      margin-top: 0;
+    }
+
+    .status {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .status:hover {
+      background-color: #555;
+    }
+
+    .status-message {
+      color: lightblue;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .bottom-block {
+      background-color: lightblue;
+      padding: 20px;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1 style="color: #333;">Smart Home Automation</h1>
+  </div>
+
+  <div class="profile-pics">
+    <div class="profile-pic left-profile"><a href="https://doin-somethin-raufs-projects-c9139f72.vercel.app/"><img src="IMG_0406.JPG" alt="Profile Pic"></a></div>
+    <div class="profile-pic right-profile"><a href="https://github.com/Raufjatoi/Scenario-Based-Programming-projects/tree/main/smart%20home"><img src="github.png" alt="Profile Pic"></a></div>
+  </div>
+
+  <div class="function-block">
+    <h2>Control Panel</h2>
+    <div class="status" id="lightControl">Adjust Lighting</div>
+    <div class="status-message" id="lightStatus"></div>
+    <div class="status" id="temperatureControl">Set Temperature</div>
+    <div class="status-message" id="temperatureStatus"></div>
+    <div class="status" id="doorControl">Lock/Unlock Doors</div>
+    <div class="status-message" id="doorStatus"></div>
+  </div>
+
+  <div class="bottom-block">
+    <p style="color: #333;">by Rauf</p>
+    <a href="linked_page.html" style="color: lightblue;">Rauf's Portfolio</a>
+  </div>
+
+  <script>
+    document.getElementById('lightControl').addEventListener('click', function() {
+      var room = prompt('Which room? (1, 2, kitchen)');
+      if (room !== null && room !== '') {
+        document.getElementById('lightStatus').innerText = 'Adjusting lighting in Room ' + room;
+        // Additional code to adjust lighting in the specified room
+      }
+    });
+
+    document.getElementById('temperatureControl').addEventListener('click', function() {
+      var room = prompt('Which room? (1, 2, kitchen)');
+      if (room !== null && room !== '') {
+        var newTemp = prompt('Enter new temperature for Room ' + room + ':');
+        if (!isNaN(newTemp)) {
+          document.getElementById('temperatureStatus').innerText = 'Setting temperature in Room ' + room + ' to ' + newTemp + '°C';
+          // Additional code to set temperature in the specified room
+        }
+      }
+    });
+
+    document.getElementById('doorControl').addEventListener('click', function() {
+      var door = prompt('Which door? (outer, room)');
+      if (door !== null && door !== '') {
+        var action = prompt('Lock or unlock?');
+        if (action !== null && action !== '') {
+          document.getElementById('doorStatus').innerText = action.charAt(0).toUpperCase() + action.slice(1) + 'ing ' + door + ' door';
+          // Additional code to lock or unlock the specified door
+        }
+      }
+    });
+  </script>
+</body>
+</html>
