@@ -5,4 +5,6 @@
 > [Restaurant managment system](https://scenario-based-programming-projects-mb2x.vercel.app/)    
 >
 > [Personal budget tracker](https://scenario-based-programming-projects.vercel.app/)
+>  
+> [Smart home system](https://raufjatoi.github.io/Scenario-Based-Programming-projects/)
 > 
