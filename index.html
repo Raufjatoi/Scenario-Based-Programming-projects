@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scenario Based Programming Project</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a; /* Dark background color */
+    color: #fff; /* White text color */
+  }
+  #header {
+    background-color: #2a2a2a; /* Darker background for header */
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  #header h1 {
+    margin: 0;
+  }
+  #header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer; /* Add pointer cursor for clickable effect */
+  }
+  #header img:hover {
+    transform: scale(1.1);
+  }
+  #header img.left {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+  #header img.right {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  #content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+  }
+  .block {
+    width: 200px;
+    height: 150px; /* Increased height to fit the heading */
+    background-color: #3a3a3a; /* Darker background for blocks */
+    margin: 10px;
+    border-radius: 10px;
+    cursor: pointer; /* Add pointer cursor for clickable effect */
+    transition: background-color 0.3s ease;
+    overflow: hidden; /* Hide overflowing content */
+    position: relative; /* Position for the heading */
+  }
+  .block:hover {
+    background-color: #4a4a4a; /* Darker background on hover */
+  }
+  .block.clicked {
+    background-color: #6a6a6a; /* Darker background when clicked */
+  }
+  .block h2 {
+    font-size: 16px;
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+  }
+  /* Define rainbow colors */
+  .block:nth-child(odd):hover {
+    background-color: blue
+  }
+  .block:nth-child(even):hover {
+    background-color: orangered
+  }
+  .block:nth-child(3n):hover {
+    background-color: goldenrod
+  }
+  .block:nth-child(4n):hover {
+    background-color: #6a00ff
+  }
+  .block:nth-child(5n):hover {
+    background-color: #0000ff; /* Blue */
+  }
+  .block:nth-child(6n):hover {
+    background-color: #4b0082; /* Indigo */
+  }
+  .block:nth-child(7n):hover {
+    background-color: #9400d3; /* Violet */
+  }
+  #footer {
+    background-color: #2a2a2a; /* Darker background for footer */
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+  <div id="header">
+    <img src="IMG_0406.JPG" alt="rauf" class="left" onclick="window.location.href='https://doin-somethin-raufs-projects-c9139f72.vercel.app/'">
+    <h1>Scenario Based Programming Project</h1>
+    <img src="github.png" alt="gi" class="right" onclick="window.location.href='https://github.com/Raufjatoi/Scenario-Based-Programming-projects'">
+  </div>
+  <div id="content">
+    <!-- Blocks -->
+    <div class="block" onclick="window.location.href='restaurant system/index.html'">
+      <h2>Restaurant order managment System</h2>
+    </div>
+    <div class="block" onclick="window.location.href='movie recommendation/index.html'">
+      <h2>movie recommendation system</h2>
+    </div>
+    <div class="block" onclick="window.location.href='Budget tracker system/index.html'">
+      <h2>Personal Budget Tracker</h2>
+    </div>
+    <div class="block" onclick="window.location.href='e-commerce system/index.html'">
+      <h2>E-commerce Product Search</h2>
+    </div>
+    <div class="block" onclick="window.location.href='link7.html'">
+      <h2>Block 5</h2>
+    </div>
+    <div class="block" onclick="window.location.href='link8.html'">
+      <h2>Block 6</h2>
+    </div>
+    <div class="block" onclick="window.location.href='link9.html'">
+      <h2>Block 7</h2>
+    </div>
+    <div class="block" onclick="window.location.href='link10.html'">
+      <h2>Block 8</h2>
+    </div>
+    <div class="block" onclick="window.location.href='link11.html'">
+      <h2>Block 9</h2>
+    </div>
+    <div class="block" onclick="window.location.href='link12.html'">
+      <h2>Block 10</h2>
+    </div>
+  </div>
+  <div id="footer">
+    <p>By Rauf</p>
+  </div>
+<script>
+  const blocks = document.querySelectorAll('.block');
+
+  blocks.forEach(block => {
+    block.addEventListener('click', function() {
+      // Remove 'clicked' class from all blocks
+      blocks.forEach(b => b.classList.remove('clicked'));
+      // Add 'clicked' class to the clicked block
+      this.classList.add('clicked');
+    });
+  });
+</script>
+</body>
+</html>

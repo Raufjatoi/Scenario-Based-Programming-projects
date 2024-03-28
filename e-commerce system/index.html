@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-commerce Product Search</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    overflow: hidden;
+    position: relative;
+  }
+  #header {
+    background-color: #6a00ff;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    transition: top 0.3s;
+  }
+  #header h1 {
+    margin: 0;
+  }
+  #header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+  #header img.left {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+  #header img.right {
+    position: absolute;
+    top: 10px;
+    right: 40px;
+  }
+  #header img:hover {
+    transform: scale(1.1);
+  }
+  #content {
+    margin-top: 100px; /* Adjusted to account for header height */
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 0;
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: calc(100vh - 200px); /* Adjust max height to fit within window */
+  }
+  .product {
+    background-color: #3a3a3a;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .product h2 {
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(106, 0, 255, 0.6) 0%, rgba(106, 0, 255, 0) 80%);
+    animation: glow 2s infinite alternate;
+  }
+  @keyframes glow {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.2);
+    }
+  }
+  .glow.bottom-left {
+    bottom: 0;
+    left: 0;
+  }
+  .glow.bottom-right {
+    bottom: 0;
+    right: 0;
+  }
+  #footer {
+    background-color: #6a00ff;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    transition: bottom 0.3s;
+  }
+
+  /* Mobile Styles */
+  @media only screen and (max-width: 600px) {
+    #header img {
+      width: 30px;
+      height: 30px;
+    }
+    #header img.right {
+      right: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div id="header">
+    <img src="IMG_0406.JPG" alt="Profile Pic" class="left">
+    <h1>E-commerce Product Search</h1>
+    <img src="github.png" alt="Profile Pic" class="right">
+  </div>
+  <div id="content">
+    <!-- Product search and filtering functionality -->
+    <input type="text" id="searchInput" placeholder="Search products...">
+    <select id="categorySelect">
+      <option value="">All Categories</option>
+      <option value="electronics">Electronics</option>
+      <option value="clothing">Clothing</option>
+      <option value="books">Books</option>
+      <!-- Add more categories as needed -->
+    </select>
+    <!-- Add more filter options as needed -->
+    
+    <div id="products">
+      <!-- Product results will be displayed here -->
+    </div>
+  </div>
+  <div id="footer">
+    <p>By Rauf</p>
+  </div>
+
+<script>
+  // Dummy product data
+  const products = [
+    { name: "Product 1", category: "electronics", price: 50, brand: "Brand A", rating: 4.5 },
+    { name: "Product 2", category: "clothing", price: 30, brand: "Brand B", rating: 4.0 },
+    { name: "Product 3", category: "books", price: 20, brand: "Brand C", rating: 4.8 },
+    // Add more products as needed
+  ];
+
+  // Function to display products
+  function displayProducts() {
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const category = document.getElementById("categorySelect").value.toLowerCase();
+
+    const filteredProducts = products.filter(product => 
+      (product.name.toLowerCase().includes(searchInput) || product.brand.toLowerCase().includes(searchInput)) &&
+      (category === "" || product.category === category)
+    );
+
+    const productsContainer = document.getElementById("products");
+    productsContainer.innerHTML = "";
+
+    filteredProducts.forEach(product => {
+      const productDiv = document.createElement("div");
+      productDiv.classList.add("product");
+      productDiv.innerHTML = `
+        <h2>${product.name}</h2>
+        <p>Category: ${product.category}</p>
+        <p>Price: $${product.price}</p>
+        <p>Brand: ${product.brand}</p>
+        <p>Rating: ${product.rating}</p>
+        <div class="glow bottom-left"></div>
+        <div class="glow bottom-right"></div>
+      `;
+      productsContainer.appendChild(productDiv);
+    });
+  }
+
+  // Event listeners
+  document.getElementById("searchInput").addEventListener("input", displayProducts);
+  document.getElementById("categorySelect").addEventListener("change", displayProducts);
+
+  // Initial display of products
+  displayProducts();
+  
+  // Function to show/hide header and footer on scroll
+  let lastScrollTop = 0;
+  window.addEventListener("scroll", function(){
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    if (currentScroll > lastScrollTop){
+      // Downscroll
+      document.getElementById("header").style.top = "-100px";
+      document.getElementById("footer").style.bottom = "-100px";
+    } else {
+      // Upscroll
+      document.getElementById("header").style.top = "0";
+      document.getElementById("footer").style.bottom = "0";
+    }
+    lastScrollTop = currentScroll;
+  }, false);
+</script>
+</body>
+</html>
