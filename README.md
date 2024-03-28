@@ -6,4 +6,4 @@
 >
 > [Personal budget tracker](https://scenario-based-programming-projects.vercel.app/)
 >  
-ok its so tiring im just gonna all the in one main .html file 
+ok its so tiring im just gonna add all the in one main .html file 
