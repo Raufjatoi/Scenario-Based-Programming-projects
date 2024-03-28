@@ -6,5 +6,4 @@
 >
 > [Personal budget tracker](https://scenario-based-programming-projects.vercel.app/)
 >  
-> [Smart home system](https://raufjatoi.github.io/Scenario-Based-Programming-projects/)
-> 
+ok its so tiring im just gonna all the in one main .html file 
