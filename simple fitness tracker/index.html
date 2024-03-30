@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Fitness Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #222; /* Dark background */
+      color: white;
+    }
+
+    header {
+      background-color: #EE6C86; /* Pink color block */
+      text-align: center;
+      padding: 20px;
+    }
+
+    .profile-pic-container { 
+      display: flex;
+      justify-content: space-between;
+      margin-top: -20px; 
+      padding: 10px; 
+      border: 5px solid #EE6C86; 
+    }
+
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%; 
+      transition: transform 0.2s;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.2);
+    }
+
+    .fitness-block { 
+      margin: 20px auto; 
+      width: 50%; 
+      padding: 20px;
+      border: 5px solid #EE6C86; 
+      text-align: center; 
+    }
+
+    .form-field {
+      margin-bottom: 15px;
+    }
+
+    footer {
+      position: absolute; 
+      bottom: 0;
+      width: 100%;
+      text-align: center; 
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fitness Tracker</h1> 
+    <div class="profile-pic-container"> 
+      <a href="https://doin-somethin-raufs-projects-c9139f72.vercel.app/"><img src="IMG_0406.JPG" class="profile-pic left"></a>
+      <a href="https://your-github-link-here"><img src="github.png" class="profile-pic right"></a>
+    </div>
+    
+  </header>
+
+  <main>
+    <section class="dashboard"> 
+        <h2>Dashboard</h2>
+      </section>
+
+    <section class="reports"> 
+        <h2>Reports</h2>
+      </section>
+
+    <section class="fitness-block">
+      <h2>Fitness Questions & Tracking</h2>
+      <form id="fitness-form">
+        <div class="form-field">
+          <label for="daily-steps">Steps Taken Today:</label>
+          <input type="number" id="daily-steps" name="daily-steps">
+        </div>
+        <div class="form-field">
+          <label for="distance">Distance (km):</label> 
+          <input type="number" id="distance" name="distance"> 
+        </div>
+        <div class="form-field"> <label for="calories">Calories Burned:</label>
+          <input type="number" id="calories" name="calories"> </div>
+        <div class="form-field">
+          <label for="target-steps">Target Steps:</label>
+          <input type="number" id="target-steps" name="target-steps">
+        </div>
+        <button type="submit">Submit</button> 
+      </form>
+      <div id="results"></div> </section>
+  </main>
+
+  <footer>
+    <p>Created by Rauf</p>
+  </footer>
+
+  <script>
+    function handleFormSubmit(event) {
+      event.preventDefault();
+
+      const steps = document.getElementById('daily-steps').value;
+      const distance = document.getElementById('distance').value;
+      const calories = document.getElementById('calories').value;
+      const targetSteps = document.getElementById('target-steps').value;
+
+      const distanceInMiles = (distance / 1.609).toFixed(2); 
+      const caloriesBurnedEstimate = steps * 0.04; 
+
+      let feedback = "";
+      if (steps >= targetSteps) {
+        feedback = "You reached your step goal! Keep up the great work!";
+      } else {
+        feedback = "Don't worry, you'll get there! Keep moving."; 
+      }
+
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = `
+       <p>Distance (Approx.): ${distanceInMiles} miles</p>
+       <p>Estimated Calories Burned: ${caloriesBurnedEstimate}</p>
+       <p>${feedback}</p>
+     `;
+    }
+
+    const fitnessForm = document.getElementById('fitness-form');
+    fitnessForm.addEventListener('submit', handleFormSubmit);
+  </script>
+</body>
+</html>

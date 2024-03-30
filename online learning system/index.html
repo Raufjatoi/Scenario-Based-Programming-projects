@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Online Learning Platform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #90CAF9; 
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; 
+      align-items: center; 
+    }
+
+    .course-grid {
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px; 
+    }
+
+    .course-card img {
+      object-fit: cover;
+      width: 100%;       
+      height: 150px;     
+      border-radius: 5px;
+      margin-bottom: 10px; 
+    }
+
+    header {
+      background-color: #fff; 
+      padding: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between; 
+    }
+
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav li {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    main {
+      flex: 1;
+      width: 80%; 
+      margin-top: 20px;
+    }
+
+    .course-card {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      text-align: center;
+      transition: all 0.2s ease-in-out;  
+    }
+
+    .course-card:hover {
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+      transform: translateY(-3px) scale(1.05); 
+    }
+
+    nav ul li a span { 
+      color: black; /* Default color */  
+    }
+    nav ul li a:hover span { 
+      color: blue; /* Change color on hover */
+    }
+
+    footer {
+      background-color: #fff;
+      padding: 10px;
+      width: 100%;
+      text-align: center;
+      color: #000; 
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="IMG_0406.JPG" alt="Profile Picture (Left)" class="profile-pic">
+    <h1>Online Learning Platform</h1>
+    <img src="github.png" alt="Profile Picture (Right)" class="profile-pic">
+    <nav>
+      <ul>
+        <li><a href="cources.html"><span>Courses</span></a></li>
+        <li><a href="dashboard.html"><span>My Dashboard</span></a></li>
+        <li><a href="lr.html"><span>Login/Register</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="course-listing">
+      <h2>Featured Courses</h2>
+      <div class="course-grid">
+        <div class="course-card">
+          <a href="https://www.linkedin.com/learning/introduction-to-web-design-and-development-14628245/web-design-and-development-in-the-code-and-no-code-era">
+            <img src="c1.jfif" alt="Course 1"> 
+          </a>
+          <h3>Web Development Fundamentals</h3>
+          <p>Learn the basics of building websites with HTML, CSS, and JavaScript.</p>
+        </div>
+        <div class="course-card">
+            <a href="https://www.classcentral.com/course/linkedin-learning-python-data-analysis-78660">
+                <img src="c2.jpeg" alt="Course 2">
+            </a>
+            <h3>Data Analysis with Python</h3>
+            <p>Master data manipulation, visualization, and analysis using Python libraries.</p>
+        </div>
+        <div class="course-card">
+          <a href="https://www.youtube.com/watch?v=i_LwzRVP7bg&list=PLdvRS3dZP77LZAU2YcwoX1yNmMpNtlpkR&index=5&t=4085s"> 
+            <img src="c3.jpg" alt="Course 3">
+          </a>
+          <h3>Machine Learning for Everyone</h3>
+          <p>by the one and only kylie yong if im not wrong </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Created by Rauf</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Online Learning Platform - Dashboard</title>
+  <style>
+    /* General Styles (from previous work) */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #90CAF9; 
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; 
+        align-items: center; 
+    }
+
+    header {
+        background-color: #fff; 
+        padding: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between; 
+    }
+
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav li {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    main {
+      flex: 1;
+      width: 80%; 
+      margin-top: 20px;
+    }
+
+
+    .back-button { 
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #fff; 
+        color: #333; 
+        margin-right: 20px; 
+        border: none;
+        text-decoration: none;
+    }
+
+    .container {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    /* Dashboard Specific Styles */
+    #profile-summary {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px; 
+        border-radius: 5px;
+    }
+
+    #profile-summary h2 {
+      margin-bottom: 10px;
+    }
+
+    #in-progress-courses, #recommendations {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px; 
+        border-radius: 5px;
+    }
+
+    .course-list {
+      display: flex; 
+      flex-direction: column; /* Courses stacked vertically */
+      gap: 20px; 
+    }
+
+    .course-progress-card { 
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+    }
+
+    .course-progress-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .progress-bar {
+      height: 10px; 
+      width: 100%; 
+      background-color: #eee;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background-color: #4CAF50; 
+    }
+
+    footer {
+      background-color: #fff;
+      padding: 10px;
+      width: 100%;
+      text-align: center;
+      color: #000; 
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="back-button">Back to Home</a> 
+    <h1>My Dashboard</h1>
+  </header>
+
+  <main>
+    <div class="container"> 
+      <section id="profile-summary">
+        <h2>Profile Summary</h2>
+        <h3>|Rauf|</h3> 
+        <p>Courses Completed: 3</p>
+      </section>
+
+      <section id="in-progress-courses">
+        <h2>Courses in Progress</h2>
+        <div class="course-list"> </div>
+      </section>
+
+      <section id="recommendations">
+        </section>
+    </div>
+  </main>
+
+  <footer> </footer>
+
+  <script>
+    const user = {
+      name: "John Doe",
+      coursesCompleted: 3,
+      enrolledCourses: [
+        { title: "Web Development Fundamentals", image: "c1.jpg", progress: 50 },
+        { title: "Data Analysis with Python", image: "c2.jpg", progress: 25 }, 
+      ] 
+    }; 
+
+    const courseList = document.querySelector('.course-list');
+
+    user.enrolledCourses.forEach(course => {
+      const courseCard = document.createElement('div');
+      courseCard.classList.add('course-progress-card');
+
+      courseCard.innerHTML = `
+        <h3>${course.title}</h3> 
+        <img src="${course.image}" alt="${course.title}"> 
+        <div class="progress-bar">
+          <div class="progress-bar-fill" style="width: ${course.progress}%"></div>
+        </div> `; 
+
+      courseList.appendChild(courseCard);
+    });
+  </script>
+</body>
+</html>
