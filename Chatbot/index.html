@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rr Music Chatbot</title>
+    <style> /* CSS Styles */
+        body {
+            background-color: #222; /* Dark background color */
+            color: white; /* Text color */
+        }
+
+        #chat-container {
+            width: 400px; /* Adjust container width */
+            margin: 0 auto; /* Center align container */
+            background-color: #333; /* Dark background color */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Add padding */
+        }
+
+        #top-block {
+            width: 100%; /* Full width of the chat container */
+            height: 70px;
+            background-color: silver;
+            display: flex; /* Use flexbox for positioning */
+            justify-content: space-between; /* Space elements horizontally */
+            align-items: center; /* Align elements vertically */
+            padding: 10px; /* Add padding for better spacing */
+            border-radius: 10px 10px 0 0; /* Rounded corners on top */
+            margin-bottom: 20px; /* Add margin below top block */
+        }
+
+        #rr-logo {
+            width: 50px; /* Adjust image size */
+            height: 50px; /* Adjust image size */
+            border-radius: 50%; /* Make circular */
+            margin-right: 10px; /* Add margin for spacing */
+        }
+
+        #user-avatar {
+            width: 50px; /* Adjust image size */
+            height: 50px; /* Adjust image size */
+            border-radius: 50%; /* Make circular */
+            margin-left: 10px; /* Add margin for spacing */
+        }
+
+        #chat-window {
+            height: 300px; /* Set height for chat window */
+            overflow-y: auto; /* Enable vertical scrollbar */
+            padding: 10px; /* Add padding */
+            border: 1px solid silver; /* Add border */
+            border-radius: 10px; /* Rounded corners */
+            background-color: #444; /* Darker background color */
+            margin-bottom: 20px; /* Add margin below chat window */
+        }
+
+        #input-area {
+            display: flex; /* Use flexbox for positioning */
+            align-items: center; /* Align elements vertically */
+        }
+
+        #input-area input[type="text"] {
+            flex: 1; /* Take remaining width */
+            padding: 10px; /* Add padding */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            margin-right: 10px; /* Add margin */
+            background-color: #555; /* Darker background color */
+            color: white; /* Text color */
+        }
+
+        #input-area button {
+            padding: 10px 20px; /* Add padding */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            background-color: #007bff; /* Blue color */
+            color: white; /* Text color */
+            cursor: pointer; /* Add cursor pointer */
+        }
+
+        #rauf-text {
+            text-align: center; /* Center align text */
+            font-style: italic; /* Italicize text */
+            margin-top: 20px; /* Add margin on top */
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="top-block">
+            <img id="rr-logo" src="IMG_0406.JPG" alt="Rr Music Logo"> 
+            <h1>Rr Music</h1>
+            <img id="user-avatar" src="github.png" alt="User Avatar"> 
+        </div>
+        <div id="chat-window"></div>
+        <div id="input-area">
+            <input type="text" id="user-input" placeholder="Type your message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+        <div id="rauf-text">by Rauf</div>
+    </div>
+
+    <script> 
+        function sendMessage() {
+            let userInput = document.getElementById("user-input").value;
+            document.getElementById("user-input").value = ''; // Clear input field
+            displayMessage(userInput, "user"); 
+            processInput(userInput);
+        }
+
+        function displayMessage(message, sender) {
+            let chatWindow = document.getElementById("chat-window");
+            let messageElement = document.createElement("div");
+            messageElement.classList.add(sender);
+            messageElement.textContent = message;
+            chatWindow.appendChild(messageElement);
+            chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to bottom
+        }
+
+        function processInput(input) {
+            let response;
+            if (input.toLowerCase().includes("hello") || input.toLowerCase().includes("hi")) {
+                response = "Hello! How can I assist you today?";
+            } else if (input.toLowerCase().includes("music")) {
+                response = "I love talking about music! What's your favorite genre?";
+            } else if (input.toLowerCase().includes("bye")) {
+                response = "Goodbye! Have a great day!";
+            } else {
+                response = "I'm still learning. Here's some music info.";
+            }
+            displayMessage(response, "bot");
+        }
+    </script>
+</body>
+</html>
