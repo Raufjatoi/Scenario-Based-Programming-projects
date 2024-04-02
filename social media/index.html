@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Feed - Share Your Thoughts!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #333; /* Dark background */
+      color: #eee; /* Light text color */
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background-color: #d2b48c; /* Light brown header background */
+      border-bottom: 1px solid #ccc; /* Light border */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    }
+
+    .profile-pic {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer; /* Pointer on hover for profile pics */
+    }
+
+    .hover-effect:hover {
+      transform: scale(1.1); /* Slight zoom on hover */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* More pronounced shadow on hover */
+    }
+
+    .new-post {
+      padding: 20px;
+      background-color:#d2b48c; ; /* Light gray background for post area */
+      border-radius: 5px; /* Rounded corners for post area */
+      margin-top: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* More pronounced shadow */
+    }
+
+    .feed {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    .feed li {
+      background-color: #d2b48c;  /* White background for posts */
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3); /* Slightly more pronounced shadow for posts */
+    }
+
+    .byline {
+      text-align: right;
+      font-style: italic;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="IMG_0406.JPG" alt="Profile Picture 1" class="profile-pic top left hover-effect">
+    <h1>Social Feed - Share Your Thoughts!</h1>
+    <img src="github.png" alt="Profile Picture 2" class="profile-pic top right hover-effect">
+  </header>
+
+  <main>
+    <section class="new-post">
+      <textarea id="postInput" placeholder="What's on your mind?"></textarea>
+      <button id="postButton">Pass</button>
+    </section>
+    
+    <ul class="feed" id="feedList"></ul>
+  </main>
+
+  <div class="question-section"> 
+  </div>
+
+  <div class="byline">BY Rauuf</div>
+
+  <script>
+    class User {
+      constructor(username) {
+        this.username = username;
+        this.posts = [];
+      }
+
+      postMessage(message) {
+        this.posts.push(message);
+      }
+
+      viewFeed() {
+        return this.posts;
+      }
+    }
+
+    class SocialMediaFeed {
+      constructor() {
+        this.users = {};
+      }
+
+      addUser(user) {
+        this.users[user.username] = user;
+      }
+
+      postMessage(username, message) {
+        if (username in this.users) {
+          this.users[username].postMessage(message);
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      viewUserFeed(username) {
+        if (username in this.users) {
+          return this.users[username].viewFeed();
+        } else {
+          return null;
+        }
+      }
+    }
+
+    let feed = new SocialMediaFeed();
+
+    let user1 = new User("rauf");
+    let user2 = new User("someone");
+
+    feed.addUser(user1);
+    feed.addUser(user2);
+
+    user1.postMessage("Hello from 0rauf!");
+    user2.postMessage("Hi there, someone here.");
+
+    const postButton = document.getElementById('postButton');
+    const postInput = document.getElementById('postInput');
+    const feedList = document.getElementById('feedList');
+
+    postButton.addEventListener('click', () => {
+      const username = "Alice"; // For simplicity, let's assume the user is always "Alice" for now
+      const message = postInput.value;
+      if (message.trim() !== '') {
+        postMessage(username, message);
+        postInput.value = ''; 
+      }
+    });
+
+    function postMessage(username, message) {
+      const success = feed.postMessage(username, message);
+      if (success) {
+        displayFeed(feed.viewUserFeed(username));
+      } else {
+        console.log('Failed to post message');
+      }
+    }
+
+    function displayFeed(feed) {
+      feedList.innerHTML = ''; 
+      if (feed) {
+        feed.forEach(post => {
+          const postItem = document.createElement('li');
+          postItem.textContent = post;
+          feedList.appendChild(postItem);
+        });
+      } else {
+        console.log(`Failed to fetch feed`);
+      }
+    }
+
+    // Initial display
+    displayFeed(feed.viewUserFeed("rauf")); // Display Alice's feed initially
+  </script>
+</body>
+</html>
