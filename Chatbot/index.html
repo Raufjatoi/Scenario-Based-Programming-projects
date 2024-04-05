@@ -4,16 +4,21 @@
     <title>Rr Music Chatbot</title>
     <style> /* CSS Styles */
         body {
-            background-color: #222; /* Dark background color */
+            background-color: silver; /* Silver background color */
             color: white; /* Text color */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            font-family: Arial, sans-serif; /* Specify font family */
         }
 
         #chat-container {
-            width: 400px; /* Adjust container width */
+            width: 100%; /* Full width */
+            max-width: 800px; /* Limit maximum width */
             margin: 0 auto; /* Center align container */
             background-color: #333; /* Dark background color */
             border-radius: 10px; /* Rounded corners */
             padding: 20px; /* Add padding */
+            box-sizing: border-box; /* Include padding and border in width calculation */
         }
 
         #top-block {
@@ -28,18 +33,19 @@
             margin-bottom: 20px; /* Add margin below top block */
         }
 
-        #rr-logo {
-            width: 50px; /* Adjust image size */
-            height: 50px; /* Adjust image size */
-            border-radius: 50%; /* Make circular */
-            margin-right: 10px; /* Add margin for spacing */
-        }
-
+        #rr-logo,
         #user-avatar {
             width: 50px; /* Adjust image size */
             height: 50px; /* Adjust image size */
             border-radius: 50%; /* Make circular */
-            margin-left: 10px; /* Add margin for spacing */
+            margin-right: 10px; /* Add margin for spacing */
+            cursor: pointer; /* Add cursor pointer */
+            transition: transform 0.2s ease-in-out; /* Add transition effect */
+        }
+
+        #rr-logo:hover,
+        #user-avatar:hover {
+            transform: scale(1.1); /* Scale up on hover */
         }
 
         #chat-window {
@@ -86,9 +92,13 @@
 <body>
     <div id="chat-container">
         <div id="top-block">
-            <img id="rr-logo" src="IMG_0406.JPG" alt="Rr Music Logo"> 
+            <a href="https://bento.me/rauf" target="_blank">
+                <img id="rr-logo" src="IMG_0406.JPG" alt="Rr Music Logo">
+            </a>
             <h1>Rr Music</h1>
-            <img id="user-avatar" src="github.png" alt="User Avatar"> 
+            <a href="https://github.com/Raufjatoi/Scenario-Based-Programming-projects/tree/main/Chatbot" target="_blank">
+                <img id="user-avatar" src="github.png" alt="User Avatar">
+            </a>
         </div>
         <div id="chat-window"></div>
         <div id="input-area">

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Quiz Game</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: linear-gradient(to right, #ffeb3b, #ff8e00); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: whitesmoke;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0, 0.2);
+            text-align: center;
+            width: 500px; 
+            position: relative;
+        }
+
+        .profile-pic {
+            position: absolute;
+            top: 20px; 
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            cursor: pointer; 
+        }
+
+        .profile-pic.left {
+            left: 20px; 
+        }
+
+        .profile-pic.right {
+            right: 20px; 
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1); 
+        }
+
+        .by-rauf {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%); 
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        #startGame {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+        } 
+
+        #numQuestions {
+            margin-bottom: 10px; 
+            padding: 5px;
+        }
+
+        #quiz {
+            display: none;
+        }
+
+        #progress {
+            margin-top: 20px;
+        }
+
+        .option {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            background-color: #ddd;
+            transition: background-color 0.3s;
+        }
+
+        .option:hover {
+            background-color: #ccc;
+        }
+
+        #scoreContainer {
+            margin-top: 20px;
+        }
+
+        .correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .incorrect {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-pic left">
+        <img src="IMG_0406.JPG" alt="Profile Left" style="width: 50px; height: 50px;" onclick="window.location.href='https://bento.me/rauf'"> 
+    </div>
+    <div class="profile-pic right">
+        <img src="github.png" alt="Profile Right" style="width: 50px; height: 50px;" onclick="window.location.href='https://github.com/Raufjatoi/Scenario-Based-Programming-projects/tree/main'"> 
+    </div>
+    
+    <div class="container">
+        <h1>The Quiz Game</h1>
+        <div id="quiz">
+            <div id="question"></div>
+            <div id="choices"></div>
+            <div id="timer"></div>
+            <div id="progress"></div>
+        </div>
+        <div id="scoreContainer" style="display: none;"></div>
+        <div id="startGame">
+            <h2>How many questions do you want to play? (5-40)</h2>
+            <input type="number" id="numQuestions" min="5" max="40">
+            <button onclick="startGame()">Start Quiz</button>
+        </div>
+    </div>
+
+    <div class="by-rauf">By Rauf</div>
+
+    <script>
+        const questionEl = document.getElementById('question');
+        const choicesEl = document.getElementById('choices');
+        const timerEl = document.getElementById('timer');
+        const progressEl = document.getElementById('progress');
+        const scoreContainer = document.getElementById('scoreContainer');
+        const startGameDiv = document.getElementById('startGame');
+        const numQuestionsInput = document.getElementById('numQuestions');
+        const quizContainer = document.getElementById('quiz');
+
+        let questions = [
+            {
+                question: "What does HTML stand for?",
+                choices: ["Hyper Text Markup Language", "High Tech Machine Learning", "None of the above"],
+                answer: "Hyper Text Markup Language"
+            },
+            {
+                question: "What does CSS stand for?",
+                choices: ["Common Style Sheets", "Cascading Style Sheets", "Computer Style Sheets"],
+                answer: "Cascading Style Sheets"
+            },
+            {
+                question: "Which of the following is NOT a JavaScript data type?",
+                choices: ["Number", "String", "Boolean", "Class"],
+                answer: "Class"
+            },
+            {
+                question: "What is the correct way to write a JavaScript array?",
+                choices: ["var colors = (1:'red', 2:'green', 3:'blue')", "var colors = ['red', 'green', 'blue']", "var colors = 'red', 'green', 'blue'"],
+                answer: "var colors = ['red', 'green', 'blue']"
+            },
+            {
+                question: "In Python, how do you start a function definition?",
+                choices: ["function myFunction():", "def myFunction():", "create function myFunction():"],
+                answer: "def myFunction():"
+            },
+            // Add more questions here
+            {
+                question: "What is the capital of France?",
+                choices: ["London", "Madrid", "Paris"],
+                answer: "Paris"
+            },
+            {
+                question: "Who wrote 'To Kill a Mockingbird'?",
+                choices: ["J.K. Rowling", "Harper Lee", "Stephen King"],
+                answer: "Harper Lee"
+            },
+            {
+                question: "What is the chemical symbol for water?",
+                choices: ["H2O", "CO2", "NaCl"],
+                answer: "H2O"
+            },
+            {
+                question: "Which planet is known as the Red Planet?",
+                choices: ["Earth", "Mars", "Venus"],
+                answer: "Mars"
+            },
+            {
+                question: "What is the largest mammal?",
+                choices: ["Blue Whale", "African Elephant", "Giraffe"],
+                answer: "Blue Whale"
+            },
+            {
+                question: "Who painted the Mona Lisa?",
+                choices: ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso"],
+                answer: "Leonardo da Vinci"
+            },
+            {
+                question: "What is the tallest mountain in the world?",
+                choices: ["Mount Everest", "K2", "Kangchenjunga"],
+                answer: "Mount Everest"
+            },
+            {
+                question: "Which animal is known as the 'King of the Jungle'?",
+                choices: ["Tiger", "Lion", "Leopard"],
+                answer: "Lion"
+            },
+            {
+                question: "What is the currency of Japan?",
+                choices: ["Yuan", "Yen", "Won"],
+                answer: "Yen"
+            },
+            {
+                question: "Who is the author of '1984'?",
+                choices: ["George Orwell", "Ernest Hemingway", "F. Scott Fitzgerald"],
+                answer: "George Orwell"
+            },
+            {
+                question: "What is the chemical symbol for gold?",
+                choices: ["Au", "Ag", "Fe"],
+                answer: "Au"
+            },
+            {
+                question: "Which country is known as the Land of the Rising Sun?",
+                choices: ["China", "India", "Japan"],
+                answer: "Japan"
+            },
+            {
+                question: "What is the hardest natural substance on Earth?",
+                choices: ["Diamond", "Iron", "Steel"],
+                answer: "Diamond"
+            },
+            {
+                question: "Who developed the theory of relativity?",
+                choices: ["Isaac Newton", "Albert Einstein", "Galileo Galilei"],
+                answer: "Albert Einstein"
+            },
+            {
+                question: "What is the chemical symbol for sodium?",
+                choices: ["Na", "S", "So"],
+                answer: "Na"
+            },
+            {
+                question: "Who wrote 'The Great Gatsby'?",
+                choices: ["F. Scott Fitzgerald", "John Steinbeck", "Mark Twain"],
+                answer: "F. Scott Fitzgerald"
+            },
+            {
+                question: "What is the largest organ in the human body?",
+                choices: ["Liver", "Heart", "Skin"],
+                answer: "Skin"
+            },
+            {
+                question: "Who invented the telephone?",
+                choices: ["Thomas Edison", "Alexander Graham Bell", "Nikola Tesla"],
+                answer: "Alexander Graham Bell"
+            },
+            {
+                question: "What is the chemical symbol for oxygen?",
+                choices: ["O", "O2", "O3"],
+                answer: "O"
+            },
+            {
+                question: "Who painted 'The Starry Night'?",
+                choices: ["Pablo Picasso", "Vincent van Gogh", "Claude Monet"],
+                answer: "Vincent van Gogh"
+            },
+            {
+                question: "Which planet is known as the Blue Planet?",
+                choices: ["Earth", "Neptune", "Uranus"],
+                answer: "Earth"
+            },
+            {
+                question: "What is the currency of China?",
+                choices: ["Yuan", "Yen", "Dollar"],
+                answer: "Yuan"
+            },
+            {
+                question: "Who wrote 'Pride and Prejudice'?",
+                choices: ["Charlotte Bronte", "Jane Austen", "Emily Dickinson"],
+                answer: "Jane Austen"
+            },
+            {
+                question: "What is the chemical symbol for carbon?",
+                choices: ["C", "Co", "Ca"],
+                answer: "C"
+            },
+            {
+                question: "Which country is known as the Land of the Midnight Sun?",
+                choices: ["Norway", "Sweden", "Finland"],
+                answer: "Norway"
+            },
+            {
+                question: "What is the tallest animal in the world?",
+                choices: ["Giraffe", "Elephant", "Horse"],
+                answer: "Giraffe"
+            },
+            {
+                question: "Who wrote 'Hamlet'?",
+                choices: ["William Shakespeare", "Charles Dickens", "Jane Austen"],
+                answer: "William Shakespeare"
+            },
+            {
+                question: "What is the chemical symbol for silver?",
+                choices: ["Ag", "Au", "Si"],
+                answer: "Ag"
+            },
+            {
+                question: "Which country is known as the Land of Fire and Ice?",
+                choices: ["Iceland", "Greenland", "Canada"],
+                answer: "Iceland"
+            },
+            {
+                question: "What is the fastest land animal?",
+                choices: ["Cheetah", "Lion", "Leopard"],
+                answer: "Cheetah"
+            },
+            {
+                question: "Who painted the Sistine Chapel ceiling?",
+                choices: ["Leonardo da Vinci", "Michelangelo", "Raphael"],
+                answer: "Michelangelo"
+            },
+            {
+                question: "Which country is known as the Emerald Isle?",
+                choices: ["Scotland", "Ireland", "Wales"],
+                answer: "Ireland"
+            },
+            {
+                question: "What is the chemical symbol for iron?",
+                choices: ["Fe", "Ir", "In"],
+                answer: "Fe"
+            },
+            {
+                question: "What is the capital of Italy?",
+                choices: ["Rome", "Milan", "Venice"],
+                answer: "Rome"
+            },
+            {
+                question: "Who wrote 'War and Peace'?",
+                choices: ["Leo Tolstoy", "Fyodor Dostoevsky", "Anton Chekhov"],
+                answer: "Leo Tolstoy"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timerInterval;
+
+        function startGame() {
+            const numQuestions = parseInt(numQuestionsInput.value);
+            if (numQuestions >= 5 && numQuestions <= 40) {
+                startGameDiv.style.display = 'none';
+                quizContainer.style.display = 'block';
+                loadQuestion();
+                startTimer();
+            } else {
+                alert('Please enter a number between 5 and 40.');
+            }
+        }
+
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            questionEl.textContent = question.question;
+            choicesEl.innerHTML = '';
+            question.choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.textContent = choice;
+                button.classList.add('option');
+                button.onclick = () => checkAnswer(choice, question.answer);
+                choicesEl.appendChild(button);
+            });
+            updateProgress();
+        }
+
+        function checkAnswer(selectedAnswer, correctAnswer) {
+            if (selectedAnswer === correctAnswer) {
+                score++;
+            }
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function startTimer() {
+            let timeLeft = 100;
+            updateTimer(timeLeft);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimer(timeLeft);
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    endQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimer(time) {
+            timerEl.textContent = `Time Left: ${time}s`;
+        }
+
+        function updateProgress() {
+            progressEl.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            quizContainer.style.display = 'none';
+            scoreContainer.style.display = 'block';
+            scoreContainer.innerHTML = `<h2>Quiz Completed!</h2><p>Your Score: ${score} out of ${questions.length}</p>`;
+        }
+    </script>
+</body>
+</html>
